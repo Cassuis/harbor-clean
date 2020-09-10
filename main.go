@@ -4,7 +4,6 @@ import (
 	"clean-harbor/harbor"
 	"flag"
 	"fmt"
-	"log"
 	"sort"
 )
 
@@ -26,17 +25,14 @@ func init() {
 	flag.IntVar(&keepNum, "keepNum", 0, "每个repo保留的tag个数")
 }
 
-func deleteTagByID(harborClient harbor.Client, projectID, keepNum int) {
+func deleteTagByID(harborClient harbor.Client, projectID, keepNum int) (err error) {
 	repoNames, err := harborClient.GetRepoNames(projectID)
 	if err != nil {
-		log.Fatalf("GetRepoNames获取失败: %s\n", err)
+		return
 	}
 	var size int64
 	for _, repoName := range repoNames {
-		tags, err := harborClient.GetRepoTags(repoName)
-		if err != nil {
-			panic(err)
-		}
+		tags, _ := harborClient.GetRepoTags(repoName)
 
 		//tags内容包含3个元素，格式类似于：[{2190824484 v1 2020-08-28 02:14:13.009841239 +0000 UTC} {53504535 v2 2020-08-14 00:36:48.610531148 +0000 UTC}]
 		if len(tags) > keepNum { //tag数量大于keepNum才需要执行删除
@@ -58,6 +54,7 @@ func deleteTagByID(harborClient harbor.Client, projectID, keepNum int) {
 		}
 
 	}
+	return
 }
 
 func main() {
