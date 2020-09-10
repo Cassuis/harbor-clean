@@ -23,7 +23,7 @@ func init() {
 	flag.StringVar(&user, "user", "", "harbor账号")
 	flag.StringVar(&password, "password", "", "harbor密码")
 	flag.StringVar(&projectName, "projectName", "", "项目名。注意：all 表示全部")
-	flag.IntVar(&keepNum, "keepNum", 5, "每个repo保留的tag个数")
+	flag.IntVar(&keepNum, "keepNum", 0, "每个repo保留的tag个数")
 }
 
 func deleteTagByID(harborClient harbor.Client, projectID, keepNum int) {

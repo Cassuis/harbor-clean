@@ -12,7 +12,7 @@
 Usage of clean-harbor:
   -h    help message
   -keepNum int
-        每个repo保留的tag个数 (default 5)
+        每个repo保留的tag个数
   -password string
         harbor密码
   -projectName string
@@ -30,13 +30,12 @@ go build .
 ```
 
 ### crontab
-
+需要在harbor中开启垃圾清理
 ```shell
-for example
 #> crontab -l
 0 2 * * * /root/clean-harbor -url https://harbor.abc.com -user ** -password ** -projectName * -keepNum 100 >> /var/log/cleanHarbor.log
 
-# 需要在harbor中开启垃圾清理
+
 ```
 
 ### 输出内容
@@ -84,7 +83,6 @@ for example
      删除image: xmc2-chongwen/meta-service:dev-470-257e1a7ec741f7515b0963d7e5abc50b90f4e467, 创建时间为: 2020-01-15 08:43:36.897120442 +0000 UTC
      删除image: xmc2-chongwen/meta-service:dev-469-3b9c477d46c670be96142e1ab3dcfb9e69c50e8c, 创建时间为: 2020-01-15 07:53:05.481295186 +0000 UTC
      删除image: xmc2-chongwen/meta-service:dev-467-3b9c477d46c670be96142e1ab3dcfb9e69c50e8c, 创建时间为: 2020-01-15 07:52:39.637509898 +0000 UTC
-
 ```
 
 
